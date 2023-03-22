@@ -512,7 +512,7 @@ const questions = [
       {
         answer: "asterix",
         question:
-          "CONTIENE LA X. Personaje de ficción de baja estatura que protagoniza una historieta francea muy popular.",
+          "CONTIENE LA X. Personaje de ficción de baja estatura que protagoniza una historieta francesa muy popular.",
       },
     ],
   },
@@ -561,6 +561,15 @@ const questions = [
 
 const bestScores = {};
 
+const showInstructions = (userName) => {
+  return `Hola ${userName}, estas son las reglas del Pasapalabra:\n
+  Deberás adivinar todas las palabras del rosco a través de una definición
+  Se te mostrará una letra como única pista. Por cada palabra que acertes sumarás un punto,
+  por cada palabra que falles se te restará un punto y si escribes ¨paspalabra¨ se 
+  dejará esa palabra para la siguiente ronda. Puedes abandonar la partida en cualquier momento
+  escibiendo END.`;
+};
+
 const getUserQuestions = () => {
   const userQuestions = JSON.parse(JSON.stringify(questions));
   userQuestions.forEach((question) => {
@@ -595,8 +604,10 @@ const playNextRound = (questions) => {
         question.selectedOption.answer.toLowerCase() === answer.toLowerCase()
       ) {
         question.status = STATUS_OPTIONS.CORRECT;
+        alert("Respuesta correcta!");
       } else {
         question.status = STATUS_OPTIONS.ERROR;
+        alert("Respuesta incorrecta");
       }
       countRoundAnswers++;
     }
@@ -654,6 +665,7 @@ const runPasapalabra = () => {
       "El nombre no puede estar vacio"
     );
     let userEnd = false;
+    alert(showInstructions(userName));
 
     while (!userEnd && countAnswers < userQuestions.length) {
       try {
